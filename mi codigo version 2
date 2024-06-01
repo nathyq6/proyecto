@@ -12,5 +12,6 @@
         #calculadora {
             width: 300px;
             margin: 0 auto;
-            
+            order: 1px solid #ccc;
+            padding: 10px;
         }
