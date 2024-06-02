@@ -12,8 +12,9 @@
         #calculadora {
             width: 300px;
             margin: 0 auto;
-            order: 1px solid #ccc;
+            border: 1px solid #ccc;
             padding: 10px;
+            text-aligin: center;
         }
  #pantalla {
             width: 100%;
@@ -22,6 +23,7 @@
             padding: 5px;
             font-size: 18px;
             text-align: right;
+            marging-bottom: 10px;
         }
 
         .boton {
@@ -30,5 +32,17 @@
             background-color: #ccc;
             border: 1px solid #ccc;
             cursor: pointer;
-        }
+            margin: 5px;
+      }
+      .fila {
+           margin-bottom: 5px;
+      }
+  </style>
+</head>
+<body>
+<div id="calculadora">
+    <input type="text" id="pantalla" readonly>
+    <div class="fila">
+
+       
 
