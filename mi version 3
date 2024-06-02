@@ -66,6 +66,36 @@
             <button class="boton" onclick="operar('^')">^</button>
             <button class="boton" onclick="calcular()">=</button>
         </div>
+</div>
+
+    <script>
+        let pantalla = document.getElementById('pantalla');
+        let numero1 = 0;
+        let numero2 = 0;
+        let operacion = null;
+
+        function agregarNumero(numero) {
+            pantalla.value += numero;
+        }
+
+        function agregarOperacion(op) {
+            if (numero1 === 0) {
+                numero1 = parseFloat(pantalla.value);
+                pantalla.value = "";
+            } else {
+                calcular();
+                numero1 = parseFloat(pantalla.value);
+                pantalla.value = "";
+            }
+            operacion = op;
+        }
+
+        function punto() {
+            if (!pantalla.value.includes('.')) {
+                pantalla.value += '.';
+            }
+        }
+
 
 
        
