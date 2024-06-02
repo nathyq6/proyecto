@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora básica</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        #calculadora {
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #pantalla {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 18px;
+            text-align: right;
+        }
+
+        .boton {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .operacion {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculadora">
+        <input type="text" id="pantalla" readonly>
+        <div>
+            <button class="boton" onclick="agregarNumero('7')">7</button>
+            <button class="boton" onclick="agregarNumero('8')">8</button>
+            <button class="boton" onclick="agregarNumero('9')">9</button>
+            <button class="boton operacion" onclick="agregarOperacion('+')">+</button>
+        </div>
+        <div>
+            <button class="boton" onclick="agregarNumero('4')">4</button>
+            <button class="boton" onclick="agregarNumero('5')">5</button>
+            <button class="boton" onclick="agregarNumero('6')">6</button>
+            <button class="boton operacion" onclick="agregarOperacion('-')">-</button>
+        </div>
+        <div>
+            <button class="boton" onclick="agregarNumero('1')">1</button>
+            <button class="boton" onclick="agregarNumero('2')">2</button>
+            <button class="boton" onclick="agregarNumero('3')">3</button>
+            <button class="boton operacion" onclick="agregarOperacion('')"></button>
+        </div>
+        <div>
+            <button class="boton" onclick="agregarNumero('0')">0</button>
+            <button class="boton" onclick="punto()">.</button>
+            <button class="boton operacion" onclick="agregarOperacion('/')">/</button>
+            <button class="boton" onclick="igual()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let pantalla = document.getElementById('pantalla');
+        let numero1 = 0;
+        let numero2 = 0;
+        let operacion = null;
+
+        function agregarNumero(numero) {
+            pantalla.value += numero;
+        }
+
+        function agregarOperacion(op) {
+            if (numero1 === 0) {
+                numero1 = parseFloat(pantalla.value);
+                pantalla.value = "";
+            } else {
+                calcular();
+                numero1 = parseFloat(pantalla.value);
+                pantalla.value = "";
+            }
+            operacion = op;
+        }
+
+        function punto() {
+            if (!pantalla.value.includes('.')) {
+                pantalla.value += '.';
+            }
+        }
+
+        function igual() {
+            numero2 = parseFloat(pantalla.value);
+            calcular();
+        }
+
+        function calcular() {
+            switch (operacion) {
+                case '+':
+                    numero1 += numero2;
+                    break;
+                case '-':
+                    numero1 -= numero2;
+                    break;
+                case '*':
+                    numero1 *= numero2;
+                    break;
+                case '/':
+                    numero1 /= numero2;
+                    break;
+            }
+            pantalla.value = numero1;
+            numero1 = 0;
+            numero2 = 0;
+            operacion = null;
+        }
+    </script>
+</body>
+</html>
+
+
+
+       
+
