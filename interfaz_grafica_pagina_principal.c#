@@ -1,0 +1,85 @@
+using System;
+using System.Windows.Forms;
+
+namespace HotelReservatioApp
+{
+    public partial class Form1 : Form
+    {
+        private Habitacion[] habitaciones = {
+            new Habitacion("Habitación Normal", 3, 3000),
+            new Habitacion("Suite", 6, 8000),
+            new Habitacion("Habitación Imperial", 10, 12000),
+            new Habitacion("Villa", 15, 20000)
+        };
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Inicializar ComboBox con nombres de habitaciones
+            foreach (var habitacion in habitaciones)
+            {
+                comboBoxTipoHabitacion.Items.Add(habitacion.Nombre);
+            }
+        }
+
+        private void buttonReservar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string nombreCliente = textBoxNombre.Text;
+                int edadCliente = int.Parse(textBoxEdad.Text);
+                int numAdultos = int.Parse(textBoxNumAdultos.Text);
+                int numNinos = int.Parse(textBoxNumNinos.Text);
+                int numDias = int.Parse(textBoxNumDias.Text);
+                int tipoHabitacion = comboBoxTipoHabitacion.SelectedIndex;
+
+                if (tipoHabitacion < 0 || tipoHabitacion >= habitaciones.Length)
+                {
+                    MessageBox.Show("Tipo de habitación inválido. Por favor, seleccione un tipo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                float descuentoAdultoMayor = (edadCliente > 60) ? 0.3f : 0.0f;
+                float descuentoNino = (edadCliente < 10) ? 0.15f : 0.0f;
+
+                float costoTotal = habitaciones[tipoHabitacion].CalcularCostoTotal(numAdultos, numNinos, numDias, descuentoAdultoMayor, descuentoNino);
+
+                MessageBox.Show($"El costo total de la reserva sería de ${costoTotal} con el descuento aplicado.", "Reserva Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en los datos ingresados: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVerHistorial_click(object sender, EventArgs e)
+        {
+            Historialform historialForm = new Historialform();
+            historialForm.Show();
+        }
+    }
+}
