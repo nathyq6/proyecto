@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace HotelReservatioApp
+{
+    public partial class Habitacion : Form
+    {
+        public string Nombre { get; }
+        public int CapacidadMaxima { get; }
+        public float CostoPorNoche { get; }
+
+        public static List<Reservacion> HistorialReservaciones { get; } = new List<Reservacion>();
+
+        public Habitacion(string nombre, int capacidadMaxima, float costoPorNoche)
+        {
+            Nombre = nombre;
+            CapacidadMaxima = capacidadMaxima;
+            CostoPorNoche = costoPorNoche;
+        }
+
+        public float CalcularCostoTotal(int numAdultos, int numNinos, int numDias, float descuentoAdultoMayor, float descuentoNino)
+        {
+            float costoTotal = CostoPorNoche * numDias;
+            float descuento = 0.0f;
+
+            if (numAdultos > 60)
+            {
+                descuento += descuentoAdultoMayor * numAdultos;
+            }
+
+            if (numNinos < 10)
+            {
+                descuento += descuentoNino * numNinos;
+            }
+
+            costoTotal -= descuento;
+            HistorialReservaciones.Add(new Reservacion(Nombre, numAdultos, numNinos, numDias, costoTotal));
+            return costoTotal;
+        
+
+
+        }
+    } 
+
+}
+
